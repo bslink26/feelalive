@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
 import com.neomentis.feelalive.framework.ObjectId;
-import com.neomentis.feelalive.objects.Block;
+import com.neomentis.feelalive.objects.Player;
 
 public class Game extends Canvas implements Runnable
 {
@@ -27,6 +27,9 @@ public class Game extends Canvas implements Runnable
 		HEIGHT = getHeight();
 		
 		handler = new Handler();
+		
+		handler.addObject(new Player(100, 100, ObjectId.Player));
+		
 		handler.createLevel();
 	}
 	
