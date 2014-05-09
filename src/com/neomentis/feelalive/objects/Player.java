@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import com.neomentis.feelalive.framework.GameObject;
 import com.neomentis.feelalive.framework.ObjectId;
 import com.neomentis.feelalive.framework.Texture;
+import com.neomentis.feelalive.window.Animation;
 import com.neomentis.feelalive.window.Game;
 import com.neomentis.feelalive.window.Handler;
 
@@ -22,9 +23,13 @@ public class Player extends GameObject {
 	
 	Texture tex = Game.getInstance();
 	
+	private Animation playerWalk;
+	
 	public Player(float x, float y, Handler handler, ObjectId id) {
 		super(x, y, id);
 		this.handler = handler;
+		
+		playerWalk = new Animation(10, tex.player[1], tex.player[2], tex.player[3], tex.player[4], tex.player[5], tex.player[6], tex.player[7]);
 	}
 
 	public void tick(LinkedList<GameObject> object) {
@@ -40,6 +45,8 @@ public class Player extends GameObject {
 		}
 		
 		Collision(object);
+		
+		playerWalk.runAnimation();
 	}
 	
 	private void Collision(LinkedList<GameObject> object)
@@ -78,7 +85,10 @@ public class Player extends GameObject {
 
 	public void render(Graphics g) {
 		g.setColor(Color.blue);
-		g.drawImage(tex.player[0], (int)x, (int)y, null);
+		if(velX != 0)
+			playerWalk.drawAnimation(g, (int)x, (int)y);
+		else
+			g.drawImage(tex.player[0], (int)x, (int)y, null);
 	}
 
 	public Rectangle getBounds() {

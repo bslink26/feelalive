@@ -23,7 +23,7 @@ public class Game extends Canvas implements Runnable
 	
 	public static int WIDTH, HEIGHT;
 	
-	private BufferedImage level = null;
+	private BufferedImage level = null, city = null;
 	
 	//Object
 	Handler handler;
@@ -131,11 +131,21 @@ public class Game extends Canvas implements Runnable
 		
 		//////////////////////////////////
 		
-		g.setColor(Color.black);
+		g.setColor(new Color(25, 191, 255));
 		g.fillRect(0, 0, getWidth(), getHeight());
 		
+		/* single background image
+			g.drawImage(city, 0, 0, null);
+		*/
+		
 		g2d.translate(cam.getX(), cam.getY()); //begin of cam
+		
+		/** for repeating backgrounds
+			for(int xx = 0; xx < clouds.getWidth() * 5; xx += clouds.getWidth())
+				g.drawImage(clouds, xx, 50, this);
+		 **/
 			handler.render(g);
+			
 		g2d.translate(-cam.getX(), -cam.getY()); //end of cam
 		
 		
