@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
+import com.neomentis.feelalive.framework.KeyInput;
 import com.neomentis.feelalive.framework.ObjectId;
 import com.neomentis.feelalive.objects.Player;
 
@@ -28,9 +29,11 @@ public class Game extends Canvas implements Runnable
 		
 		handler = new Handler();
 		
-		handler.addObject(new Player(100, 100, ObjectId.Player));
+		handler.addObject(new Player(100, 100, handler, ObjectId.Player));
 		
 		handler.createLevel();
+		
+		this.addKeyListener(new KeyInput(handler));
 	}
 	
 	public synchronized void start(){
