@@ -7,6 +7,8 @@ import java.util.LinkedList;
 
 import com.neomentis.feelalive.framework.GameObject;
 import com.neomentis.feelalive.framework.ObjectId;
+import com.neomentis.feelalive.framework.Texture;
+import com.neomentis.feelalive.window.Game;
 import com.neomentis.feelalive.window.Handler;
 
 public class Player extends GameObject {
@@ -17,6 +19,8 @@ public class Player extends GameObject {
 	private final float MAX_SPEED = 10;
 	
 	private Handler handler;
+	
+	Texture tex = Game.getInstance();
 	
 	public Player(float x, float y, Handler handler, ObjectId id) {
 		super(x, y, id);
@@ -74,7 +78,7 @@ public class Player extends GameObject {
 
 	public void render(Graphics g) {
 		g.setColor(Color.blue);
-		g.fillRect((int)x, (int)y, (int)width, (int)height);
+		g.drawImage(tex.player[0], (int)x, (int)y, null);
 	}
 
 	public Rectangle getBounds() {

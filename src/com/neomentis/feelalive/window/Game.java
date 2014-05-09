@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 
 import com.neomentis.feelalive.framework.KeyInput;
 import com.neomentis.feelalive.framework.ObjectId;
+import com.neomentis.feelalive.framework.Texture;
 import com.neomentis.feelalive.objects.Block;
 import com.neomentis.feelalive.objects.Player;
 
@@ -27,11 +28,14 @@ public class Game extends Canvas implements Runnable
 	//Object
 	Handler handler;
 	Camera cam;
+	static Texture tex;
 	
 	private void init() 
 	{
 		WIDTH = getWidth();
 		HEIGHT = getHeight();
+		
+		tex = new Texture();
 		
 		BufferedImageLoader loader = new BufferedImageLoader();
 		level = loader.loadImage("/level.png"); //loading the level
@@ -160,10 +164,14 @@ public class Game extends Canvas implements Runnable
 				int green = (pixel >> 8) & 0xff;
 				int blue = (pixel) & 0xff; 
 				
-				if(red == 255 && green == 255 && blue == 255) handler.addObject(new Block(xx*32, yy*32, ObjectId.Block));
+				if(red == 255 && green == 255 && blue == 255) handler.addObject(new Block(xx*32, yy*32, 0, ObjectId.Block));
 				if(red == 0 && green == 00 && blue == 255) handler.addObject(new Player(xx*32, yy*32, handler, ObjectId.Player));
 			}
 		}
+	}
+	
+	public static Texture getInstance(){
+		return tex;
 	}
 	
 	public static void main(String args[]){ 
