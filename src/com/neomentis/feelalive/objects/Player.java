@@ -2,7 +2,6 @@ package com.neomentis.feelalive.objects;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
@@ -47,12 +46,28 @@ public class Player extends GameObject {
 			
 			if(tempObject.getId() == ObjectId.Block)
 			{
+				if(getBoundsTop().intersects(tempObject.getBounds())){
+					y = tempObject.getY() + 32;
+					velY = 0;
+				}
+				
 				if(getBounds().intersects(tempObject.getBounds())){
 					y = tempObject.getY() - height;
 					velY = 0;
 					falling = false;
 					jumping = false;
+				} else {
+					falling = true;
 				}
+				//Right
+				if(getBoundsRight().intersects(tempObject.getBounds())){
+					x = tempObject.getX() - width;
+				}
+				//Left
+				if(getBoundsLeft().intersects(tempObject.getBounds())){
+					x = tempObject.getX() + 33;
+				}
+				
 			}
 		}
 	}
@@ -60,15 +75,6 @@ public class Player extends GameObject {
 	public void render(Graphics g) {
 		g.setColor(Color.blue);
 		g.fillRect((int)x, (int)y, (int)width, (int)height);
-		
-		Graphics2D g2d = (Graphics2D)g;
-		g.setColor(Color.red);
-		
-		g2d.draw(getBounds());
-		g2d.draw(getBoundsRight());
-		g2d.draw(getBoundsLeft());
-		g2d.draw(getBoundsTop());
-		
 	}
 
 	public Rectangle getBounds() {

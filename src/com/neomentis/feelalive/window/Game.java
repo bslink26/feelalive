@@ -3,10 +3,13 @@ package com.neomentis.feelalive.window;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
 import com.neomentis.feelalive.framework.KeyInput;
 import com.neomentis.feelalive.framework.ObjectId;
+import com.neomentis.feelalive.objects.Block;
 import com.neomentis.feelalive.objects.Player;
 
 public class Game extends Canvas implements Runnable
@@ -19,19 +22,27 @@ public class Game extends Canvas implements Runnable
 	
 	public static int WIDTH, HEIGHT;
 	
+	private BufferedImage level = null;
+	
 	//Object
 	Handler handler;
+	Camera cam;
 	
 	private void init() 
 	{
 		WIDTH = getWidth();
 		HEIGHT = getHeight();
 		
+		BufferedImageLoader loader = new BufferedImageLoader();
+		level = loader.loadImage("/level.png"); //loading the level
+		
 		handler = new Handler();
+		cam = new Camera(0,0);
 		
-		handler.addObject(new Player(100, 100, handler, ObjectId.Player));
+		LoadImageLevel(level);
 		
-		handler.createLevel();
+		//handler.addObject(new Player(100, 100, handler, ObjectId.Player));
+		//handler.createLevel();
 		
 		this.addKeyListener(new KeyInput(handler));
 	}
@@ -81,6 +92,13 @@ public class Game extends Canvas implements Runnable
 	private void tick()
 	{
 		handler.tick();
+		for(int i = 0; i < handler.object.size(); i++)
+		{
+			if(handler.object.get(i).getId() == ObjectId.Player)
+			{
+				cam.tick(handler.object.get(i));
+			}
+		}
 	}
 	/**
 	 * setting the amount of buffers we want prepared behind first buffer
@@ -105,18 +123,47 @@ public class Game extends Canvas implements Runnable
 		}
 		
 		Graphics g = bs.getDrawGraphics();
+		Graphics2D g2d = (Graphics2D) g;
 		
 		//////////////////////////////////
-		//Draw Here
+		
 		g.setColor(Color.black);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		
-		handler.render(g);
+		g2d.translate(cam.getX(), cam.getY()); //begin of cam
+			handler.render(g);
+		g2d.translate(-cam.getX(), -cam.getY()); //end of cam
+		
 		
 		//////////////////////////////////
 		
 		g.dispose();
 		bs.show();
+	}
+	
+	private void LoadImageLevel(BufferedImage image)
+	{
+		int w = image.getWidth();
+		int h = image.getHeight();
+		
+		System.out.println("width, height: " + w + " " + h);
+		
+		for(int xx = 0; xx < h; xx++) {
+			for(int yy = 0; yy < w; yy++) {
+				/*
+				 * Gets which pixel we're on
+				 * gets the rgb values
+				 * binary shiftiness.
+				 */
+				int pixel = image.getRGB(xx, yy);
+				int red = (pixel >> 16) & 0xff;
+				int green = (pixel >> 8) & 0xff;
+				int blue = (pixel) & 0xff; 
+				
+				if(red == 255 && green == 255 && blue == 255) handler.addObject(new Block(xx*32, yy*32, ObjectId.Block));
+				if(red == 0 && green == 00 && blue == 255) handler.addObject(new Player(xx*32, yy*32, handler, ObjectId.Player));
+			}
+		}
 	}
 	
 	public static void main(String args[]){ 
