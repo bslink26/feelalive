@@ -23,7 +23,7 @@ public class Game extends Canvas implements Runnable
 	
 	public static int WIDTH, HEIGHT;
 	
-	private BufferedImage level = null, city = null;
+	private BufferedImage level = null, nightSky = null;
 	
 	//Object
 	Handler handler;
@@ -38,15 +38,14 @@ public class Game extends Canvas implements Runnable
 		tex = new Texture();
 		
 		BufferedImageLoader loader = new BufferedImageLoader();
+		
 		level = loader.loadImage("/level.png"); //loading the level
+		nightSky = loader.loadImage("/night_sky.jpg"); //loading the background
 		
 		handler = new Handler();
 		cam = new Camera(0,0);
 		
 		LoadImageLevel(level);
-		
-		//handler.addObject(new Player(100, 100, handler, ObjectId.Player));
-		//handler.createLevel();
 		
 		this.addKeyListener(new KeyInput(handler));
 	}
@@ -131,12 +130,8 @@ public class Game extends Canvas implements Runnable
 		
 		//////////////////////////////////
 		
-		g.setColor(new Color(25, 191, 255));
-		g.fillRect(0, 0, getWidth(), getHeight());
 		
-		/* single background image
-			g.drawImage(city, 0, 0, null);
-		*/
+		g.drawImage(nightSky, 0, 0, null);
 		
 		g2d.translate(cam.getX(), cam.getY()); //begin of cam
 		
