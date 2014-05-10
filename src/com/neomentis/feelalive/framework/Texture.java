@@ -31,9 +31,11 @@ public class Texture {
 	
 	private void getTextures()
 	{
-		block[0] = bs.grabImage(1, 2, 32, 32); //stone
-		block[1] = bs.grabImage(1, 15, 32, 32); //dirt
-		block[2] = bs.grabImage(3, 2, 32, 32); //really cracked stone
+		block[0] = bs.grabImage(4, 1, 37, 32); //grass
+		block[1] = bs.grabImage(3, 1, 37, 32); //dirt
+		block[2] = bs.grabImage(1, 2, 37, 32); //stone brick
+		block[3] = bs.grabImage(5, 2, 37, 32); //wood log up
+		block[4] = bs.grabImage(5, 1, 37, 32); //wood plank
 		
 		//Walking right
 		player[0] = ps.grabImage(1, 1, 32, 64); //idle frame for player
@@ -45,9 +47,14 @@ public class Texture {
 		player[6] = ps.grabImage(7, 1, 32, 64); //walking 6 frame for player
 		player[7] = ps.grabImage(8, 1, 32, 64); //walking 7 frame for player
 
+		/**
+		 * need knew sprite sheet before we can branch off on this
+		//Can refer to this: 
+		//https://www.youtube.com/watch?v=7IH2dsQhFAE&src_vid=YRvoYyTtGsM&feature=iv&annotation_id=annotation_2633937035
 		//TODO: Walking Left
 		//TODO: Jumping Animation
 		//TODO: Fighting Animations
+		 */
 		
 	}
 }

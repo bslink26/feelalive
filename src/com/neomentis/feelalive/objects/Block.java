@@ -25,10 +25,7 @@ public class Block extends GameObject {
 	}
 	public void render(Graphics g) 
 	{
-		if (type == 0) //red
-			g.drawImage(tex.block[0], (int)x, (int)y, null);
-		if (type == 1) //purple
-			g.drawImage(tex.block[1], (int)x, (int)y, null);
+		g.drawImage(tex.block[type], (int)x, (int)y, null);
 	}
 
 	public Rectangle getBounds() {

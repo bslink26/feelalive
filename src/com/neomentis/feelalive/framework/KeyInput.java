@@ -3,6 +3,7 @@ package com.neomentis.feelalive.framework;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import com.neomentis.feelalive.objects.Bullet;
 import com.neomentis.feelalive.window.Handler;
 
 public class KeyInput extends KeyAdapter 
@@ -28,6 +29,12 @@ public class KeyInput extends KeyAdapter
 					tempObject.setJumping(true);
 					tempObject.setVelY(-10);
 				}
+				/*
+				Bullet will be fixed when we impliment running in different directions (via animations)
+				if(key == KeyEvent.VK_SPACE) {
+					handler.addObject(new Bullet(tempObject.getX(), tempObject.getY() + 48, ObjectId.Bullet, tempObject.getFacing() * 10));
+				}
+				*/
 			}
 		}
 		

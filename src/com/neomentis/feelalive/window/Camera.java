@@ -13,6 +13,10 @@ public class Camera {
 	public void tick(GameObject player)
 	{
 		x = -player.getX() + Game.WIDTH/2;
+		/*
+		if(player.isFalling() == true && player.isJumping() == false)
+			y = -player.getY() + Game.HEIGHT/2;
+		*/
 	}
 	
 	public float getX(){

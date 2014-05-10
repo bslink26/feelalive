@@ -16,7 +16,7 @@ import com.neomentis.feelalive.objects.Player;
 public class Game extends Canvas implements Runnable
 {
 
-	private static final long serialVersionUID = 3905480252076443741L;
+	private static final long serialVersionUID = 3905480252076443641L;
 
 	private boolean running = false;
 	private Thread thread;
@@ -164,20 +164,25 @@ public class Game extends Canvas implements Runnable
 		
 		for(int xx = 0; xx < h; xx++) {
 			for(int yy = 0; yy < w; yy++) {
-				/*
-				 * Gets which pixel we're on
-				 * gets the rgb values
-				 * binary shiftiness.
-				 */
 				int pixel = image.getRGB(xx, yy);
 				int red = (pixel >> 16) & 0xff;
 				int green = (pixel >> 8) & 0xff;
 				int blue = (pixel) & 0xff; 
 				
+				//Dirt and Grass
 				if(red == 255 && green == 255 && blue == 255) handler.addObject(new Block(xx*32, yy*32, 0, ObjectId.Block));
-				if(red == 255 && green == 0 && blue == 255) handler.addObject(new Block(xx*32, yy*32, 1, ObjectId.Block));
+				if(red == 0 && green == 255 && blue == 255) handler.addObject(new Block(xx*32, yy*32, 1, ObjectId.Block));
+			
+				//Wood
+				if(red == 255 && green == 0 && blue == 0) handler.addObject(new Block(xx*32, yy*32, 3, ObjectId.Block));
+				if(red == 255 && green == 255 && blue == 0) handler.addObject(new Block(xx*32, yy*32, 4, ObjectId.Block));
 				
-				if(red == 0 && green == 00 && blue == 255) handler.addObject(new Player(xx*32, yy*32, handler, ObjectId.Player));
+				//Stone
+				if(red == 255 && green == 0 && blue == 255) handler.addObject(new Block(xx*32, yy*32, 2, ObjectId.Block));
+				
+				//Player
+				if(red == 0 && green == 00 && blue == 255) 
+					handler.addObject(new Player(xx*32, yy*32, handler, ObjectId.Player));
 			}
 		}
 	}
