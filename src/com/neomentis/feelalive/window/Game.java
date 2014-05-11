@@ -22,10 +22,8 @@ public class Game extends Canvas implements Runnable
 	private Thread thread;
 	
 	public static int WIDTH, HEIGHT;
-	
 	private BufferedImage level = null, nightSky = null;
 	
-	//Object
 	Handler handler;
 	Camera cam;
 	static Texture tex;
@@ -39,8 +37,9 @@ public class Game extends Canvas implements Runnable
 		
 		BufferedImageLoader loader = new BufferedImageLoader();
 		
-		level = loader.loadImage("/level.png"); //loading the level
-		nightSky = loader.loadImage("/night_sky.jpg"); //loading the background
+		//level = loader.loadImage("/level.png"); //loading the level
+		level = loader.loadImage("/level1_lessblocks.png"); //loading the level
+		nightSky = loader.loadImage("/night_sky.png"); //loading the background
 		
 		handler = new Handler();
 		cam = new Camera(0,0);
@@ -182,11 +181,13 @@ public class Game extends Canvas implements Runnable
 		}
 	}
 	
+	public static void main(String args[]){ 
+		new Window(800, 600, "Feel Alive", new Game());
+	}
+	
 	public static Texture getInstance(){
 		return tex;
 	}
 	
-	public static void main(String args[]){ 
-		new Window(800, 600, "Feel Alive", new Game());
-	}
+
 }

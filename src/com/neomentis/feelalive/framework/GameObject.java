@@ -13,6 +13,9 @@ public abstract class GameObject
 	protected boolean falling = true;
 	protected boolean jumping = false;
 	protected int facing = 1;
+	protected int duration = 0;
+	protected int coolDown = 0;
+	protected boolean onCoolDown = false;
 	
 	public boolean isFalling() {
 		return falling;
